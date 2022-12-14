@@ -276,15 +276,22 @@ class TestAskarDidCommV2:
         alg = KeyAlg.ED25519
         secret = "00000000000000000000000Recipient" 
         test_key = Key.from_secret_bytes(alg, secret)
+
         verkey_bytes = test_key.get_public_bytes()
+        seckey_bytes = test_key.get_secret_bytes()
 
         verkey = bytes_to_b58(verkey_bytes)
+        seckey = bytes_to_b58(seckey_bytes)
         did = bytes_to_b58(verkey_bytes[0:16])
         print("Recipient Verkey as in C#: "+ verkey)
+        print("Recipient Secretkey as in C#: "+ seckey)
         print("Recipient DID as in C#: "+ did)
         
         #todo - Save keyPair with Id verkey in the wallet --> Look for code examples in this project
-
+        await session.insert_key(verkey, test_key)
+        entry = await session.fetch_key(verkey)
+        #print("Key added and directly read publicbytes:" + bytes_to_b58(entry.key.get_public_bytes()))
+        #print("Key added and directly read secretbytes:" + bytes_to_b58(entry.key.get_secret_bytes()))
         message_unknown_alg = json.dumps(
             {
                 "protected": "eyJlbmMiOiJ4Y2hhY2hhMjBwb2x5MTMwNV9pZXRmIiwidHlwIjoiSldNLzEuMCIsImFsZyI6IkFub25jcnlwdCIsInJlY2lwaWVudHMiOlt7ImVuY3J5cHRlZF9rZXkiOiJkVWlZRVdxTHk1eUc4T0VpYTB5UFNtSEhIMUVmUEk1VWQtQ1diY1RKMFNONWJSQ0RZNmNuTm1RZWRxRkZvQjhQTHJvR3RoellKVnBOSGtmNjdZNTdCVGRjTkRfa09ueDN2ZEdIYTQybFBtMD0iLCJoZWFkZXIiOnsia2lkIjoiR1VpNFc2cVFDU0JhWVRCcEU4dlRXRFNTc3dTWUN3aTFkYURKZ0d5TXpFd1kifX1dfQ==",#b64url(json.dumps({"alg": "NOT-SUPPORTED"})),
