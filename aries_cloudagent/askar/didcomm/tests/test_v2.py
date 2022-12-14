@@ -292,17 +292,27 @@ class TestAskarDidCommV2:
         entry = await session.fetch_key(verkey)
         #print("Key added and directly read publicbytes:" + bytes_to_b58(entry.key.get_public_bytes()))
         #print("Key added and directly read secretbytes:" + bytes_to_b58(entry.key.get_secret_bytes()))
-        message_unknown_alg = json.dumps(
+        message_V1_pack = json.dumps(
             {
-                "protected": "eyJlbmMiOiJ4Y2hhY2hhMjBwb2x5MTMwNV9pZXRmIiwidHlwIjoiSldNLzEuMCIsImFsZyI6IkFub25jcnlwdCIsInJlY2lwaWVudHMiOlt7ImVuY3J5cHRlZF9rZXkiOiJkVWlZRVdxTHk1eUc4T0VpYTB5UFNtSEhIMUVmUEk1VWQtQ1diY1RKMFNONWJSQ0RZNmNuTm1RZWRxRkZvQjhQTHJvR3RoellKVnBOSGtmNjdZNTdCVGRjTkRfa09ueDN2ZEdIYTQybFBtMD0iLCJoZWFkZXIiOnsia2lkIjoiR1VpNFc2cVFDU0JhWVRCcEU4dlRXRFNTc3dTWUN3aTFkYURKZ0d5TXpFd1kifX1dfQ==",#b64url(json.dumps({"alg": "NOT-SUPPORTED"})),
+                "protected": "eyJlbmMiOiJ4Y2hhY2hhMjBwb2x5MTMwNV9pZXRmIiwidHlwIjoiSldNLzEuMCIsImFsZyI6IkFub25jcnlwdCIsInJlY2lwaWVudHMiOlt7ImVuY3J5cHRlZF9rZXkiOiJTd3dPWEE4NWl5XzhlazhyWmh0RDUwaWFUdHJBWmFoVkhkMmJoamRCcEF3Sm9SUDloZVg0cVI1ZmozQU44ZnhvMEl5ZlhSTjZrM0pVVFRhWVlfb1ctbXVtT2ZjSWhmbWs3MU9oX2xJeks1OD0iLCJoZWFkZXIiOnsia2lkIjoiR1VpNFc2cVFDU0JhWVRCcEU4dlRXRFNTc3dTWUN3aTFkYURKZ0d5TXpFd1kifX1dfQ==",#b64url(json.dumps({"alg": "NOT-SUPPORTED"})),
                 #"recipients": [{"header": {"kid": "bob"}, "encrypted_key": "MTIzNA"}],
-                "iv": "ch4OOmVAgCvkC0Fz",
-                "ciphertext": "MTIzNA",#"MngxC_XHNc02kF1j4_E4OvLesy_T8xnn5NyRjtOaEpjgCbIPC6EmAmbxX7_wNEBNRAiYkrZyXVJFAkZGgwRBQAi6aZGI5VYkIsNDd1MMsuGdxyhtXCQc3ub2ZGqlb07tBP4DWuCrIWX4WLNKMHetQqnsn82mN8sSutleV5fCr4MeIkq0GHGbge2obnKpZSqYfSOW3tR-a1iTqtUZP2KLc-CgofeXZgcyBoEzQZihg-k8xsC1_r4FMIhDI2jlU4pPU1xk8_y4_ghiIT79JIUr_vjTmtIhtA==",
-                "tag": "1_h7oMf2SXv7N0UssXB7cA==",
+                "iv": "7SFfQv7JkUxw-IfB",
+                "ciphertext": "kjNxIuTjRXmOWhOzlF53R1G3sh81tsK2vQOXH8AQS23JPWXh1WA0z2w0FsSi7aqzt0ssbDsj-Y6YzOq5mQkijCaiQBN9o4kr95oOEjnFOzEwsYp3-bnjAtZWp_JeAje_oHt90Ia5zgYSdiq9QHwOBjAIPCxr-bo2TkNDj-HMYXo4z4bXFtKXa86eQ2AAFtWqbAukK8ZFGpugbGXlXThi4afY70zGpyBz0Ol6q880qk5fx0CWf8ig20tADcXvVbNcQ88xcDhi6AzMngrytkPVyA9gvhJfNQ==",#"MTIzNA",
+                "tag": "o1YFpsc0p5h-Ae-AUfUC7g==",
             }
         )
 
-        _ = await test_moduleV1.unpack_message(session, message_unknown_alg)
+        message_V2_pack = json.dumps(
+            {
+                "protected": "ueyJlbmMiOiJ4Y2hhY2hhMjBwb2x5MTMwNV9pZXRmIiwidHlwIjoiSldNLzEuMCIsImFsZyI6IkFub25jcnlwdCIsInJlY2lwaWVudHMiOlt7ImVuY3J5cHRlZF9rZXkiOiJ1OHktM2RUaFB5OVRpQTNySDdrVTRFLWtabXIyUElXVjlRemxvVGpOOHBTd3k2dmQ0LTE5V0tEaHdDSGNNa3JxeDluXzctUkdUdU53N2llazhaN1NKczlGaUU4NDZVMjBQa3hUTnd4azhoVjY0bGpfb2lzZUFjX1JQbGxRIiwiaGVhZGVyIjp7ImtpZCI6IjcxamVoNXdGTmNIZGJiYnFtMTVNaXRtaEpCWnF1UTluOWRkWXFiMlBiOHJtIiwic2VuZGVyIjpudWxsLCJpdiI6bnVsbH19XX0",
+                #"recipients": [{"header": {"kid": "bob"}, "encrypted_key": "MTIzNA"}],
+                "iv": "1ZcHTdMCxWHXYRg3b8wdjZQseqiw9W+2",
+                "ciphertext": "0AI7wN3/E91+OGgWjE0fUnYociiaos0QWnTHAFVPGgbid8SiNoFOdtkTfV7s0HnAoMbVz+jy6WW6fPDXBeByEsVDHlOGKN06Yp0OdwNO7DUUKqHSnU4AvcCD0tn9wBPFienlN7c8W6kmQzCfOt3QzQsYFSxRpDfcs581vhPoFq05L/1S1PXVDz9BO8uBYYoAq1Vz9EzLvpyhz+O+OlY4OCROnqc+F4bKEIuKRtzwNCnQsJUjNS59gPIbBP9gm1tAMwL57GizGql3fkWVIloL4gOWlQ3dFg==",
+                "tag": "+B0zW8/XL2uBN8WqgOjNTA==",
+            }
+        )
+
+        _ = await test_moduleV1.unpack_message(session, message_V2_pack)
 
     @pytest.mark.asyncio
     async def test_unpack_message_1pu_x(self, session: Session):

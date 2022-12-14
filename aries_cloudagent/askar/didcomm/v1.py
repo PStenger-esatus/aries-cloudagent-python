@@ -134,4 +134,5 @@ def _extract_payload_key(sender_cek: dict, recip_secret: Key) -> Tuple[bytes, st
     else:
         sender_vk = None
         cek = crypto_box.crypto_box_seal_open(recip_x, sender_cek["key"])
+        print("crypto_box_seal_open worked!")
     return cek, sender_vk
