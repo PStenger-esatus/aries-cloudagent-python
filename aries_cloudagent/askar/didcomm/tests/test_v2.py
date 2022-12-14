@@ -11,6 +11,8 @@ from ....utils.jwe import JweRecipient, b64url, JweEnvelope
 from ...profile import AskarProfileManager
 from .. import v2 as test_module
 
+from .. import v1 as test_moduleV1
+from aries_cloudagent.wallet.util import bytes_to_b58
 
 ALICE_KID = "did:example:alice#key-1"
 BOB_KID = "did:example:bob#key-1"
@@ -266,48 +268,34 @@ class TestAskarDidCommV2:
                 bob_sk,
                 alice_pk,
             )
-
+    
     @pytest.mark.asyncio
     async def test_unpack_message_any_x(self, session: Session):
-        message_invalid = "{}"
+        
+        #Init Verkey, Did and store them in wallet as in our PackUnpack Tests (MessageServiceTestsV1V2") in Aries
+        alg = KeyAlg.ED25519
+        secret = "00000000000000000000000Recipient" 
+        test_key = Key.from_secret_bytes(alg, secret)
+        verkey_bytes = test_key.get_public_bytes()
 
-        with pytest.raises(
-            test_module.DidcommEnvelopeError,
-            match="Invalid",
-        ):
-            _ = await test_module.unpack_message(session, message_invalid)
+        verkey = bytes_to_b58(verkey_bytes)
+        did = bytes_to_b58(verkey_bytes[0:16])
+        print("Recipient Verkey as in C#: "+ verkey)
+        print("Recipient DID as in C#: "+ did)
+        
+        #todo - Save keyPair with Id verkey in the wallet --> Look for code examples in this project
 
         message_unknown_alg = json.dumps(
             {
-                "protected": b64url(json.dumps({"alg": "NOT-SUPPORTED"})),
-                "recipients": [{"header": {"kid": "bob"}, "encrypted_key": "MTIzNA"}],
-                "iv": "MTIzNA",
-                "ciphertext": "MTIzNA",
-                "tag": "MTIzNA",
+                "protected": "eyJlbmMiOiJ4Y2hhY2hhMjBwb2x5MTMwNV9pZXRmIiwidHlwIjoiSldNLzEuMCIsImFsZyI6IkFub25jcnlwdCIsInJlY2lwaWVudHMiOlt7ImVuY3J5cHRlZF9rZXkiOiJkVWlZRVdxTHk1eUc4T0VpYTB5UFNtSEhIMUVmUEk1VWQtQ1diY1RKMFNONWJSQ0RZNmNuTm1RZWRxRkZvQjhQTHJvR3RoellKVnBOSGtmNjdZNTdCVGRjTkRfa09ueDN2ZEdIYTQybFBtMD0iLCJoZWFkZXIiOnsia2lkIjoiR1VpNFc2cVFDU0JhWVRCcEU4dlRXRFNTc3dTWUN3aTFkYURKZ0d5TXpFd1kifX1dfQ==",#b64url(json.dumps({"alg": "NOT-SUPPORTED"})),
+                #"recipients": [{"header": {"kid": "bob"}, "encrypted_key": "MTIzNA"}],
+                "iv": "ch4OOmVAgCvkC0Fz",
+                "ciphertext": "MTIzNA",#"MngxC_XHNc02kF1j4_E4OvLesy_T8xnn5NyRjtOaEpjgCbIPC6EmAmbxX7_wNEBNRAiYkrZyXVJFAkZGgwRBQAi6aZGI5VYkIsNDd1MMsuGdxyhtXCQc3ub2ZGqlb07tBP4DWuCrIWX4WLNKMHetQqnsn82mN8sSutleV5fCr4MeIkq0GHGbge2obnKpZSqYfSOW3tR-a1iTqtUZP2KLc-CgofeXZgcyBoEzQZihg-k8xsC1_r4FMIhDI2jlU4pPU1xk8_y4_ghiIT79JIUr_vjTmtIhtA==",
+                "tag": "1_h7oMf2SXv7N0UssXB7cA==",
             }
         )
 
-        with pytest.raises(
-            test_module.DidcommEnvelopeError,
-            match="Unsupported DIDComm encryption",
-        ):
-            _ = await test_module.unpack_message(session, message_unknown_alg)
-
-        message_unknown_recip = json.dumps(
-            {
-                "protected": b64url(json.dumps({"alg": "ECDH-ES+A128KW"})),
-                "recipients": [{"header": {"kid": "bob"}, "encrypted_key": "MTIzNA"}],
-                "iv": "MTIzNA",
-                "ciphertext": "MTIzNA",
-                "tag": "MTIzNA",
-            }
-        )
-
-        with pytest.raises(
-            test_module.DidcommEnvelopeError,
-            match="No recognized recipient key",
-        ):
-            _ = await test_module.unpack_message(session, message_unknown_recip)
+        _ = await test_moduleV1.unpack_message(session, message_unknown_alg)
 
     @pytest.mark.asyncio
     async def test_unpack_message_1pu_x(self, session: Session):

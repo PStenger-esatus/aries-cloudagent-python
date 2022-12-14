@@ -248,6 +248,14 @@ async def unpack_message(
     """Decode a message using DIDComm v2 encryption."""
     try:
         wrapper = JweEnvelope.from_json(enc_message)
+        print(wrapper.ciphertext)
+        print("###################################################")
+        print(wrapper.protected)
+        print("###################################################")
+        print(wrapper.recipients_json)
+        print("###################################################")
+        print(wrapper.protected_b64)
+        print("###################################################")
     except ValidationError:
         raise DidcommEnvelopeError("Invalid packed message")
 
