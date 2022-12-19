@@ -134,6 +134,10 @@ class JweEnvelope:
     @classmethod
     def _deserialize(cls, parsed: Mapping[str, Any]) -> "JweEnvelope":
         protected_b64 = parsed[IDENT_PROTECTED]
+        print("PROTECTED B64: " + protected_b64)
+        protected_b64_bytes = from_b64url(protected_b64)
+        print("Conversion success : protected_b64 string to bytes")
+        print(protected_b64_bytes.decode("utf-8"))
         try:
             protected: dict = json.loads(from_b64url(protected_b64))
         except json.JSONDecodeError:

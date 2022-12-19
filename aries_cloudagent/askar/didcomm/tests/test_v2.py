@@ -271,7 +271,7 @@ class TestAskarDidCommV2:
     
     @pytest.mark.asyncio
     async def test_unpack_message_any_x(self, session: Session):
-        
+
         #Init Verkey, Did and store them in wallet as in our PackUnpack Tests (MessageServiceTestsV1V2") in Aries
         alg = KeyAlg.ED25519
         secret = "00000000000000000000000Recipient" 
