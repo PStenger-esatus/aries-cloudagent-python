@@ -312,21 +312,21 @@ class TestAskarDidCommV2:
             }
         )
 
-        message_V2_test_pack = json.dumps(
-            {
-                #Mit MultibaseEncoding Base64Url -> war erster Versuch, klappt auch nicht
-                #Mit MultibaseEncoding Base64Padded: klappt nicht
-                "protected" : "MeyJlbmMiOiJ4Y2hhY2hhMjBwb2x5MTMwNV9pZXRmIiwidHlwIjoiSldNLzEuMCIsImFsZyI6IkFub25jcnlwdCIsInJlY2lwaWVudHMiOlt7ImVuY3J5cHRlZF9rZXkiOiJ1bUhzX0I5akRWQkg5b2lYUWpZRWZReG04N09KWmt3RGpwS2I1dFdoUnFXRHVmMDVTdnIzckk0dWNkSWducWpPMWxHYVY3T0dqOXhzUGM3Y2RfcWtGRE8yQ3VfQ1ZIa0trbm1xT3lqZjlwcE0iLCJoZWFkZXIiOnsia2lkIjoiOEdXYjhzUlVmVzhETjZGZWdaN2R4Vm9UbmRURUhLVnBNYUVVek1pZUMzSEEiLCJzZW5kZXIiOm51bGwsIml2IjpudWxsfX1dfQ==",
-                #Mit MultibaseEncoding Base64: -> klappt nicht
-                #"protected": "meyJlbmMiOiJ4Y2hhY2hhMjBwb2x5MTMwNV9pZXRmIiwidHlwIjoiSldNLzEuMCIsImFsZyI6IkFub25jcnlwdCIsInJlY2lwaWVudHMiOlt7ImVuY3J5cHRlZF9rZXkiOiJ1M3JFdVhXU2RXSk95T002SjVBbnVnUmRPX09Va25MckxpRVJJTXdpRWJBRVdscXZEYmt0MVljN0o2RzE0a1VobkxjRDFnQUtxLXRscWVwZzI2LUhMbXFBNy16RFR3NDZUX2ZGVXluUk85TEEiLCJoZWFkZXIiOnsia2lkIjoiRHB3WDVWdnhWNHVyeW85THJHRDVjZGdObnBvNkx1UGkxUTUxR1ZnM0dRRnUiLCJzZW5kZXIiOm51bGwsIml2IjpudWxsfX1dfQ",
-                #Mit Convert.ToBase64String: -> klappt
-                #"protected": "eyJlbmMiOiJ4Y2hhY2hhMjBwb2x5MTMwNV9pZXRmIiwidHlwIjoiSldNLzEuMCIsImFsZyI6IkFub25jcnlwdCIsInJlY2lwaWVudHMiOlt7ImVuY3J5cHRlZF9rZXkiOiJ1bXliSjNtY0M4cjNjeUZFbVczR3BJX3FtcE10aHZ3cURwS0s1OW5kUXhCUjZUUU9UUEh0TGEtNkozWHQ0Y1ZaY2JRM2tUTWZsMkUwSVExbFNVeEJyWTQxSGs4c0RYaWlaWFY5ZTJBaTZTeVEiLCJoZWFkZXIiOnsia2lkIjoiOGZYam1SdEpRUVNQV3lrNVJ3TGJxbTd4NFRZeHJtUGdGQk1xc1Q5VTVkNFYiLCJzZW5kZXIiOm51bGwsIml2IjpudWxsfX1dfQ==",
-                #"recipients": [{"header": {"kid": "bob"}, "encrypted_key": "MTIzNA"}],
-                "iv": "7fWN87rymX2yBNB1",
-                "ciphertext": "ZI22mtdBxONxDAqd6AeZXSawhhPse/hayfdFFquKQL60aqsYRk0sfuHsrhjf/cY/JiB2FrGFPeSO68GXt+7Du+wwhNspP8SPbTSFVwOQxWdUftwI5EA0oJB8i69A1wJbP1yESV8OFUEWq/3thQSkunzs66YVFHEQb0IgM4f3ygGG10MO/ltmwc7miN1DD5XDzmZybWucAqDZ/+41eaXvBGBWoVS91d6D4PwnGqsR9tpB7l+v0MX0I88P+9O6/agvTw7lHAHoa+muKxrqu+QKZ3kqvR+Lkg==",
-                "tag": "nQaHpAJStTzX2NBvb7qV7A==",
-            }
-        )
+        #message_V2_test_pack = json.dumps(
+        #    {
+        #        #Mit MultibaseEncoding Base64Url -> war erster Versuch, klappt auch nicht
+        #        #Mit MultibaseEncoding Base64Padded: klappt nicht
+        #        "protected" : "MeyJlbmMiOiJ4Y2hhY2hhMjBwb2x5MTMwNV9pZXRmIiwidHlwIjoiSldNLzEuMCIsImFsZyI6IkFub25jcnlwdCIsInJlY2lwaWVudHMiOlt7ImVuY3J5cHRlZF9rZXkiOiJ1bUhzX0I5akRWQkg5b2lYUWpZRWZReG04N09KWmt3RGpwS2I1dFdoUnFXRHVmMDVTdnIzckk0dWNkSWducWpPMWxHYVY3T0dqOXhzUGM3Y2RfcWtGRE8yQ3VfQ1ZIa0trbm1xT3lqZjlwcE0iLCJoZWFkZXIiOnsia2lkIjoiOEdXYjhzUlVmVzhETjZGZWdaN2R4Vm9UbmRURUhLVnBNYUVVek1pZUMzSEEiLCJzZW5kZXIiOm51bGwsIml2IjpudWxsfX1dfQ==",
+        #        #Mit MultibaseEncoding Base64: -> klappt nicht
+        #       #"protected": "meyJlbmMiOiJ4Y2hhY2hhMjBwb2x5MTMwNV9pZXRmIiwidHlwIjoiSldNLzEuMCIsImFsZyI6IkFub25jcnlwdCIsInJlY2lwaWVudHMiOlt7ImVuY3J5cHRlZF9rZXkiOiJ1M3JFdVhXU2RXSk95T002SjVBbnVnUmRPX09Va25MckxpRVJJTXdpRWJBRVdscXZEYmt0MVljN0o2RzE0a1VobkxjRDFnQUtxLXRscWVwZzI2LUhMbXFBNy16RFR3NDZUX2ZGVXluUk85TEEiLCJoZWFkZXIiOnsia2lkIjoiRHB3WDVWdnhWNHVyeW85THJHRDVjZGdObnBvNkx1UGkxUTUxR1ZnM0dRRnUiLCJzZW5kZXIiOm51bGwsIml2IjpudWxsfX1dfQ",
+        #       #Mit Convert.ToBase64String: -> klappt
+        #       #"protected": "eyJlbmMiOiJ4Y2hhY2hhMjBwb2x5MTMwNV9pZXRmIiwidHlwIjoiSldNLzEuMCIsImFsZyI6IkFub25jcnlwdCIsInJlY2lwaWVudHMiOlt7ImVuY3J5cHRlZF9rZXkiOiJ1bXliSjNtY0M4cjNjeUZFbVczR3BJX3FtcE10aHZ3cURwS0s1OW5kUXhCUjZUUU9UUEh0TGEtNkozWHQ0Y1ZaY2JRM2tUTWZsMkUwSVExbFNVeEJyWTQxSGs4c0RYaWlaWFY5ZTJBaTZTeVEiLCJoZWFkZXIiOnsia2lkIjoiOGZYam1SdEpRUVNQV3lrNVJ3TGJxbTd4NFRZeHJtUGdGQk1xc1Q5VTVkNFYiLCJzZW5kZXIiOm51bGwsIml2IjpudWxsfX1dfQ==",
+        #       #"recipients": [{"header": {"kid": "bob"}, "encrypted_key": "MTIzNA"}],
+        #       "iv": "7fWN87rymX2yBNB1",
+        #       "ciphertext": "ZI22mtdBxONxDAqd6AeZXSawhhPse/hayfdFFquKQL60aqsYRk0sfuHsrhjf/cY/JiB2FrGFPeSO68GXt+7Du+wwhNspP8SPbTSFVwOQxWdUftwI5EA0oJB8i69A1wJbP1yESV8OFUEWq/3thQSkunzs66YVFHEQb0IgM4f3ygGG10MO/ltmwc7miN1DD5XDzmZybWucAqDZ/+41eaXvBGBWoVS91d6D4PwnGqsR9tpB7l+v0MX0I88P+9O6/agvTw7lHAHoa+muKxrqu+QKZ3kqvR+Lkg==",
+        #       "tag": "nQaHpAJStTzX2NBvb7qV7A==",
+        #   }
+        #)
 
         _ = await test_moduleV1.unpack_message(session, message_V2_pack)
 
