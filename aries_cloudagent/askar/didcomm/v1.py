@@ -103,6 +103,11 @@ async def unpack_message(session: Session, enc_message: bytes) -> Tuple[str, str
     if not sender_vk and is_authcrypt:
         raise WalletError("Sender public key not provided for Authcrypt message")
 
+
+    print("  ------------ Start AEAD Decrypt ------------------")
+    #print("IV : " + wrapper.iv)
+    #print("Tag : " + wrapper.tag)
+    #print("ProtectedBytes: " + wrapper.protected_bytes)
     cek = Key.from_secret_bytes(KeyAlg.C20P, payload_key)
     message = cek.aead_decrypt(
         wrapper.ciphertext,
@@ -110,6 +115,9 @@ async def unpack_message(session: Session, enc_message: bytes) -> Tuple[str, str
         tag=wrapper.tag,
         aad=wrapper.protected_bytes,
     )
+    print(" ------------ Success AEAD Decrypt ------------------")
+    print(message.decode())
+    print(" ----------------------------------------------------")
     return message, recip_vk, sender_vk
 
 

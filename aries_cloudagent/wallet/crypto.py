@@ -490,6 +490,10 @@ def extract_pack_recipients(recipients: Sequence[JweRecipient]) -> dict:
         elif not sender_b64 and nonce_b64:
             raise ValueError("Unexpected iv")
         nonce = from_b64url(nonce_b64) if nonce_b64 else None
+        print("---------------- see encrypted key---------------- ")
+        temp_key = list(recip.encrypted_key)
+        print(*temp_key, sep = ", ")
+        print("-------------------------------------------------- ")
 
         result[recip_vk_b58] = {
             "sender": enc_sender,

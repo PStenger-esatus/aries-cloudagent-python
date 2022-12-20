@@ -140,11 +140,8 @@ class JweEnvelope:
         print(" ")
         print("!!! Conversion success : protected_b64 string to bytes!!!")
         print(" ")
-        print("protected_b64_bytes after 'from_b64url' : " + protected_b64_bytes.decode(errors='ignore'))
-        temp = list(protected_b64_bytes)
+        print("protected_b64_bytes after 'from_b64url' : " + protected_b64_bytes.decode())
         print("protected_b64_bytes as ByteArray representation:")
-        print(" ")
-        print(*temp, sep = ", ")
         print(" ")
         try:
             protected: dict = json.loads(from_b64url(protected_b64))
