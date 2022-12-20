@@ -304,11 +304,27 @@ class TestAskarDidCommV2:
 
         message_V2_pack = json.dumps(
             {
-                "protected": "ueyJlbmMiOiJ4Y2hhY2hhMjBwb2x5MTMwNV9pZXRmIiwidHlwIjoiSldNLzEuMCIsImFsZyI6IkFub25jcnlwdCIsInJlY2lwaWVudHMiOlt7ImVuY3J5cHRlZF9rZXkiOiJ1OHktM2RUaFB5OVRpQTNySDdrVTRFLWtabXIyUElXVjlRemxvVGpOOHBTd3k2dmQ0LTE5V0tEaHdDSGNNa3JxeDluXzctUkdUdU53N2llazhaN1NKczlGaUU4NDZVMjBQa3hUTnd4azhoVjY0bGpfb2lzZUFjX1JQbGxRIiwiaGVhZGVyIjp7ImtpZCI6IjcxamVoNXdGTmNIZGJiYnFtMTVNaXRtaEpCWnF1UTluOWRkWXFiMlBiOHJtIiwic2VuZGVyIjpudWxsLCJpdiI6bnVsbH19XX0",
+                "protected": "eyJlbmMiOiJ4Y2hhY2hhMjBwb2x5MTMwNV9pZXRmIiwidHlwIjoiSldNLzEuMCIsImFsZyI6IkFub25jcnlwdCIsInJlY2lwaWVudHMiOlt7ImVuY3J5cHRlZF9rZXkiOiJ1OElvRC1DdTdoLWpqMzlLN05yWHl5VWVlQ054a2FETnNWdTBYTW9uYlhsYUpuVHdJU29JMjVrWFNBQTB5bG9QLXF3b3VlVHRCelFiNmpPMXZJcGpHRzBYcnZPbW5PQlpROWd0S0VFZXBJdVUiLCJoZWFkZXIiOnsia2lkIjoiR1VpNFc2cVFDU0JhWVRCcEU4dlRXRFNTc3dTWUN3aTFkYURKZ0d5TXpFd1kiLCJzZW5kZXIiOm51bGwsIml2IjpudWxsfX1dfQ==",
                 #"recipients": [{"header": {"kid": "bob"}, "encrypted_key": "MTIzNA"}],
-                "iv": "1ZcHTdMCxWHXYRg3b8wdjZQseqiw9W+2",
-                "ciphertext": "0AI7wN3/E91+OGgWjE0fUnYociiaos0QWnTHAFVPGgbid8SiNoFOdtkTfV7s0HnAoMbVz+jy6WW6fPDXBeByEsVDHlOGKN06Yp0OdwNO7DUUKqHSnU4AvcCD0tn9wBPFienlN7c8W6kmQzCfOt3QzQsYFSxRpDfcs581vhPoFq05L/1S1PXVDz9BO8uBYYoAq1Vz9EzLvpyhz+O+OlY4OCROnqc+F4bKEIuKRtzwNCnQsJUjNS59gPIbBP9gm1tAMwL57GizGql3fkWVIloL4gOWlQ3dFg==",
-                "tag": "+B0zW8/XL2uBN8WqgOjNTA==",
+                "iv": "TLPyKDXFeN5AsvKZ",
+                "ciphertext": "Jpf03YmC0DS8enkLKbx3Jyn7lnxONpSY6HiWk+jzDG+aPW1ky+UfC9DbE4aZT5uNz5M72zXrgRcVvEaDIvzbINSzBXr/SoAqLv5tW+aJXxOKA3D6nGIFs9aRd7MZy4goM6x6Lnvmz1RB6YDj4xGrIBerjkg47bHCQEzuGmK1IhOva3tvle4nEd/tj3r1DgrjCMPA3+m2sXySWakP+jtAQ1jlLbOCL75Am9z+TbWU0kS9YcEEtJhPhaIdUEo8OFKxlJe3SqWE+mVFDRfQV/W/C+vSAr++TQ==",
+                "tag": "iWKmek0320276J6hvXYaWw==",
+            }
+        )
+
+        message_V2_test_pack = json.dumps(
+            {
+                #Mit MultibaseEncoding Base64Url -> war erster Versuch, klappt auch nicht
+                #Mit MultibaseEncoding Base64Padded: klappt nicht
+                "protected" : "MeyJlbmMiOiJ4Y2hhY2hhMjBwb2x5MTMwNV9pZXRmIiwidHlwIjoiSldNLzEuMCIsImFsZyI6IkFub25jcnlwdCIsInJlY2lwaWVudHMiOlt7ImVuY3J5cHRlZF9rZXkiOiJ1bUhzX0I5akRWQkg5b2lYUWpZRWZReG04N09KWmt3RGpwS2I1dFdoUnFXRHVmMDVTdnIzckk0dWNkSWducWpPMWxHYVY3T0dqOXhzUGM3Y2RfcWtGRE8yQ3VfQ1ZIa0trbm1xT3lqZjlwcE0iLCJoZWFkZXIiOnsia2lkIjoiOEdXYjhzUlVmVzhETjZGZWdaN2R4Vm9UbmRURUhLVnBNYUVVek1pZUMzSEEiLCJzZW5kZXIiOm51bGwsIml2IjpudWxsfX1dfQ==",
+                #Mit MultibaseEncoding Base64: -> klappt nicht
+                #"protected": "meyJlbmMiOiJ4Y2hhY2hhMjBwb2x5MTMwNV9pZXRmIiwidHlwIjoiSldNLzEuMCIsImFsZyI6IkFub25jcnlwdCIsInJlY2lwaWVudHMiOlt7ImVuY3J5cHRlZF9rZXkiOiJ1M3JFdVhXU2RXSk95T002SjVBbnVnUmRPX09Va25MckxpRVJJTXdpRWJBRVdscXZEYmt0MVljN0o2RzE0a1VobkxjRDFnQUtxLXRscWVwZzI2LUhMbXFBNy16RFR3NDZUX2ZGVXluUk85TEEiLCJoZWFkZXIiOnsia2lkIjoiRHB3WDVWdnhWNHVyeW85THJHRDVjZGdObnBvNkx1UGkxUTUxR1ZnM0dRRnUiLCJzZW5kZXIiOm51bGwsIml2IjpudWxsfX1dfQ",
+                #Mit Convert.ToBase64String: -> klappt
+                #"protected": "eyJlbmMiOiJ4Y2hhY2hhMjBwb2x5MTMwNV9pZXRmIiwidHlwIjoiSldNLzEuMCIsImFsZyI6IkFub25jcnlwdCIsInJlY2lwaWVudHMiOlt7ImVuY3J5cHRlZF9rZXkiOiJ1bXliSjNtY0M4cjNjeUZFbVczR3BJX3FtcE10aHZ3cURwS0s1OW5kUXhCUjZUUU9UUEh0TGEtNkozWHQ0Y1ZaY2JRM2tUTWZsMkUwSVExbFNVeEJyWTQxSGs4c0RYaWlaWFY5ZTJBaTZTeVEiLCJoZWFkZXIiOnsia2lkIjoiOGZYam1SdEpRUVNQV3lrNVJ3TGJxbTd4NFRZeHJtUGdGQk1xc1Q5VTVkNFYiLCJzZW5kZXIiOm51bGwsIml2IjpudWxsfX1dfQ==",
+                #"recipients": [{"header": {"kid": "bob"}, "encrypted_key": "MTIzNA"}],
+                "iv": "7fWN87rymX2yBNB1",
+                "ciphertext": "ZI22mtdBxONxDAqd6AeZXSawhhPse/hayfdFFquKQL60aqsYRk0sfuHsrhjf/cY/JiB2FrGFPeSO68GXt+7Du+wwhNspP8SPbTSFVwOQxWdUftwI5EA0oJB8i69A1wJbP1yESV8OFUEWq/3thQSkunzs66YVFHEQb0IgM4f3ygGG10MO/ltmwc7miN1DD5XDzmZybWucAqDZ/+41eaXvBGBWoVS91d6D4PwnGqsR9tpB7l+v0MX0I88P+9O6/agvTw7lHAHoa+muKxrqu+QKZ3kqvR+Lkg==",
+                "tag": "nQaHpAJStTzX2NBvb7qV7A==",
             }
         )
 
