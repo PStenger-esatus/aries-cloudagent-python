@@ -85,6 +85,13 @@ async def unpack_message(session: Session, enc_message: bytes) -> Tuple[str, str
     if not is_authcrypt and alg != "Anoncrypt":
         raise WalletError("Unsupported pack algorithm: {}".format(alg))
 
+    encoding = wrapper.protected.get("enc")
+    typ = wrapper.protected.get("typ")
+    print("----------------- PROTECTED HEADER INFO --------------------------")
+    print("Encoding: " + encoding)
+    print("Algo: " + alg)
+    print("Type: " + typ)
+    print("-------------------------------------------------------------------")
     recips = extract_pack_recipients(wrapper.recipients)
 
     payload_key, sender_vk = None, None
